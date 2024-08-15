@@ -2,8 +2,9 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField("nombre del usuario",max_length=50)
+    last_name = models.CharField("apellidos del usuario",max_length=50)
+    car = models.ManyToManyField('Car', verbose_name="los carros del usuario")
 
 STATUS_CHOICES = {
     ('R', 'Reviewed'),
@@ -19,3 +20,7 @@ class Website (models.Model):
     rating = models.IntegerField()
     status = models.CharField(choices=STATUS_CHOICES, max_length=1)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Car(models.Model):
+    name = models.CharField( max_length=50, primary_key=True)
